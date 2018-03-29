@@ -19,6 +19,5 @@
   "devDependencies": {},
   "author": "",
   "license": "ISC",
-  "proxy": "http://localhost:3001/",
-  "homepage": "smartbirtija.azuresites.com/dashboard"
+  "proxy": "http://localhost:3001/"
 }

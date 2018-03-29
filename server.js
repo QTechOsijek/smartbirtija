@@ -10,7 +10,7 @@ const DATA_FILE = path.join(__dirname, 'data.json');
 
 app.set('port', (process.env.PORT || 3001));
 
-app.use('/', express.static(path.join(__dirname, 'build')));
+app.use('/', express.static(path.join(__dirname, 'client/build')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 })
 
 app.get('/api/orders', (req, res) => {
