@@ -55,8 +55,8 @@ app.post('/api/orders', (req, res) => {
 
 app.get('/api/menu', (req, res) => {
   const menu = {
-    "piva": {"Heineken": 13, "Osjecko": 13}, 
-    "sokovi": {"Cedevita": 11, "Cola": 12}
+    "Piva": {"Heineken": 13, "Osjecko": 13}, 
+    "Sokovi": {"Cedevita": 11, "Cola": 12}
   };
   res.json(menu);
 })
