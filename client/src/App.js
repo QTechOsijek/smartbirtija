@@ -116,7 +116,7 @@ class OrderList extends React.Component{
   createOrder = (order) => {
     const x = {
       id: order.id,
-      item: order.item,
+      items: order.items,
       price: order.price,
       table: order.table,
       runningSince: Date.now()
@@ -132,7 +132,7 @@ class OrderList extends React.Component{
       <Order
         key={order.id}
         id={order.id}
-        item={order.item}
+        items={order.items}
         price={order.price}
         table={order.table}
         runningSince={order.runningSince}
@@ -163,7 +163,7 @@ class Order extends React.Component{
         </div>
         <div className='ui horizontal segments'>
           <div className='ui segment'>
-            {this.props.item}
+            {this.props.items}
           </div>
           <div className='ui segment'>
             {this.props.price} kn
@@ -249,7 +249,7 @@ class ToggleableForm extends React.Component{
 class OrderForm extends React.Component{
   state = {
     id: '',
-    item: '',
+    items: '',
     price: '',
     table: ''
   };
@@ -259,7 +259,7 @@ class OrderForm extends React.Component{
   };
 
   handleItemChange = (e) => {
-    this.setState({ item: e.target.value });
+    this.setState({ items: e.target.value });
   };
 
   handlePriceChange = (e) => {
@@ -273,7 +273,7 @@ class OrderForm extends React.Component{
   handleSubmit = () => {
     this.props.onFormSubmit({
       id: this.state.id,
-      item: this.state.item,
+      items: this.state.items,
       price: this.state.price,
       table: this.state.table
     });
@@ -293,10 +293,10 @@ class OrderForm extends React.Component{
               />
             </div>
             <div className='field'>
-              <label>Item</label>
+              <label>Items</label>
               <input
                 type='text'
-                value={this.state.item}
+                value={this.state.items}
                 onChange={this.handleItemChange}
               />
             </div>
