@@ -23,6 +23,8 @@ app.use((req, res, next) => {
   next();
 });
 
+fs.writeFile(DATA_FILE, '[]');
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 })
