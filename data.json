@@ -1,1 +1,15 @@
-[]
+[
+    {
+        "id": 1,
+        "runningSince": 1522416108051
+    },
+    {
+        "id": 2,
+        "items": {
+            "Osjecko": 1,
+            "Heineken": 1
+        },
+        "table": 1,
+        "runningSince": 1522416208732
+    }
+]

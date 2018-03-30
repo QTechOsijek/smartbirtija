@@ -132,7 +132,7 @@ class OrderList extends React.Component{
       <Order
         key={order.id}
         id={order.id}
-        items={order.items}
+        items={JSON.stringify(order.items)}
         price={order.price}
         table={order.table}
         runningSince={order.runningSince}

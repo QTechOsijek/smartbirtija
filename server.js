@@ -45,6 +45,7 @@ app.post('/api/orders', (req, res) => {
       runningSince: Date.now()
     };
     console.log(req.body.items);
+    console.log(req.body.price);
     orders.push(newOrder);
     i++;
     fs.writeFile(DATA_FILE, JSON.stringify(orders, null, 4), () => {
