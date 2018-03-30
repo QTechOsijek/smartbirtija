@@ -6,6 +6,8 @@ const path = require('path');
 
 const app = express();
 
+var i = 1;
+
 const DATA_FILE = path.join(__dirname, 'data.json');
 
 app.set('port', (process.env.PORT || 3001));
@@ -36,13 +38,14 @@ app.post('/api/orders', (req, res) => {
   fs.readFile(DATA_FILE, (err, data) => {
     const orders = JSON.parse(data);
     const newOrder = {
-      id: req.body.id,
+      id: i,
       item: req.body.item,
       price: req.body.price,
       table: req.body.table,
       runningSince: Date.now()
     };
     orders.push(newOrder);
+    i++;
     fs.writeFile(DATA_FILE, JSON.stringify(orders, null, 4), () => {
       res.setHeader('Cache-Control', 'no-cache');
       res.json(orders);
