@@ -132,9 +132,10 @@ class OrderList extends React.Component{
       <Order
         key={order.id}
         id={order.id}
-        items={JSON.stringify(order.items)}
+        items={order.items}
         price={order.price}
         table={order.table}
+        itemsObject={order.itemsObject}
         runningSince={order.runningSince}
         onRemoveClick={this.handleRemove}
       />
@@ -156,25 +157,25 @@ class Order extends React.Component{
   };
 
   render(){
+    const items = this.props.items.map((item) =>  (
+      <Item
+        key={Math.random()}
+        product = {item}
+        quantity = {this.props.itemsObject[item]}
+      />
+    ));
     return(
       <div className='ui raised segment'>
         <div className='ui medium header'>
           Order #{this.props.id}
         </div>
-        <div className='ui horizontal segments'>
-          <div className='ui segment'>
-            {this.props.items}
-          </div>
-          <div className='ui segment'>
-            {this.props.price} kn
-          </div>
-          <div className='ui segment'>
-            Table: {this.props.table}
-          </div>
-          <div className='ui segment'>
-            Waiting for: <Timer runningSince={this.props.runningSince} />
-          </div>
-        </div>
+        {items}
+        <span className='ui medium header'>
+          Total price: {this.props.price} kn
+        </span>
+        <span className='ui right floated medium header'>
+          Waiting for: <Timer runningSince={this.props.runningSince} />
+        </span>
         <div className='ui basic content center aligned segment'>
           <button className='ui negative basic button' onClick={this.handleRemoveClick}>
             Remove order
@@ -185,6 +186,20 @@ class Order extends React.Component{
   }
 }
 
+class Item extends React.Component{
+  render(){
+    return(
+      <div className='ui horizontal segments'>
+        <div className='ui segment'>
+          {this.props.product}
+        </div>
+        <div className='ui segment'>
+          {this.props.quantity}
+        </div>
+      </div>
+    );
+  };
+}
 
 class Timer extends React.Component{
   componentDidMount(){

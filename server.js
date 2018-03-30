@@ -41,13 +41,13 @@ app.post('/api/orders', (req, res) => {
     const orders = JSON.parse(data);
     const newOrder = {
       id: i,
-      items: req.body.items,
+      items: Object.keys(req.body.items),
+      itemsObject: req.body.items,
       price: req.body.price,
       table: req.body.table,
       runningSince: Date.now()
     };
-    console.log(req.body.items);
-    console.log(req.body.price);
+    console.log(newOrder.items);
     orders.push(newOrder);
     i++;
     fs.writeFile(DATA_FILE, JSON.stringify(orders, null, 4), () => {
