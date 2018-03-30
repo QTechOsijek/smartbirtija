@@ -53,6 +53,14 @@ app.post('/api/orders', (req, res) => {
   });
 });
 
+app.get('/api/menu', (req, res) => {
+  const menu = {
+    "piva": {"Heineken": 13, "Osjecko": 13}, 
+    "sokovi": {"Cedevita": 11, "Cola": 12}
+  };
+  res.json(menu);
+})
+
 app.post('/api/timers/start', (req, res) => {
   fs.readFile(DATA_FILE, (err, data) => {
     const timers = JSON.parse(data);
