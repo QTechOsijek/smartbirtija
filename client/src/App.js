@@ -1,9 +1,19 @@
 import React from 'react';
 import './App.css';
-
+import _ from 'lodash';
 const client = (function () {
   function getOrders(success) {
     return fetch('/api/orders', {
+      headers: {
+        Accept: 'application/json',
+      },
+    }).then(checkStatus)
+      .then(parseJSON)
+      .then(success);
+  }
+
+  function getMenu(success) {
+    return fetch('/api/menu', {
       headers: {
         Accept: 'application/json',
       },
@@ -75,7 +85,8 @@ const client = (function () {
     deleteOrder,
     createOrder,
     millisecondsToHuman,
-    pad
+    pad,
+    getMenu
   };
 }());
 
@@ -152,8 +163,29 @@ class OrderList extends React.Component{
 }
 
 class Order extends React.Component{
+  state = {
+    menu: {}
+  };
+
+  componentDidMount(){
+    client.getMenu((loadedMenu) => (
+      this.setState({ menu: loadedMenu })
+      )
+    );
+  };
+
   handleRemoveClick = () => {
     this.props.onRemoveClick(this.props.id);
+  };
+
+  getItemPrice = (item) => {
+    if(_.get(this.state.menu, ['Piva', item])){
+      return _.get(this.state.menu, ['Piva', item]);
+    } else if(_.get(this.state.menu, ['Sokovi', item])){
+      return _.get(this.state.menu, ['Sokovi', item])
+    } else {
+      return 'unknown';
+    }
   };
 
   render(){
@@ -162,6 +194,7 @@ class Order extends React.Component{
         key={Math.random()}
         product = {item}
         quantity = {this.props.itemsObject[item]}
+        price = {this.getItemPrice(item)}
       />
     ));
     return(
@@ -198,6 +231,9 @@ class Item extends React.Component{
         </div>
         <div className='ui segment'>
           {this.props.quantity}
+        </div>
+        <div className='ui segment'>
+          {this.props.price} kn
         </div>
       </div>
     );
