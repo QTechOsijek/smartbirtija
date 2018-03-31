@@ -1,16 +1,1 @@
-[
-    {
-        "id": 1,
-        "items": [
-            "nesto trece",
-            "heineken"
-        ],
-        "itemsObject": {
-            "nesto trece": "1",
-            "heineken": "2"
-        },
-        "price": 29.99,
-        "table": 1,
-        "runningSince": 1522431346324
-    }
-]
+[]

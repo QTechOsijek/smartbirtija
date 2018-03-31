@@ -86,7 +86,7 @@ class OrderList extends React.Component{
 
   componentDidMount(){
     this.loadOrdersFromServer();
-    setInterval(this.loadOrdersFromServer, 5000);
+    setInterval(this.loadOrdersFromServer, 2000);
   }
 
   loadOrdersFromServer = () => {
@@ -166,14 +166,17 @@ class Order extends React.Component{
     ));
     return(
       <div className='ui raised segment'>
-        <div className='ui medium header'>
+        <span className='ui medium header'>
           Order #{this.props.id}
-        </div>
+        </span>
+        <span className='right floated ui small header'>
+          Table: {this.props.table}
+        </span>
         {items}
         <span className='ui medium header'>
           Total price: {this.props.price} kn
         </span>
-        <span className='ui right floated medium header'>
+        <span className='ui right floated small header'>
           Waiting for: <Timer runningSince={this.props.runningSince} />
         </span>
         <div className='ui basic content center aligned segment'>
@@ -264,14 +267,9 @@ class ToggleableForm extends React.Component{
 
 class OrderForm extends React.Component{
   state = {
-    id: '',
     items: '',
     price: '',
     table: ''
-  };
-
-  handleIdChange = (e) => {
-    this.setState({ id: parseInt(e.target.value, 10) });
   };
 
   handleItemChange = (e) => {
@@ -287,12 +285,15 @@ class OrderForm extends React.Component{
   };
 
   handleSubmit = () => {
-    this.props.onFormSubmit({
-      id: this.state.id,
-      items: this.state.items,
+    var obj = {
+      items: {},
       price: this.state.price,
       table: this.state.table
-    });
+    }
+    obj.items[this.state.items] = 1;
+    console.log(obj.items);
+    client.createOrder(obj);
+    this.props.onFormClose();
   };
 
   render(){
@@ -301,15 +302,7 @@ class OrderForm extends React.Component{
         <div className='content'>
           <div className='ui form'>
             <div className='field'>
-              <label>Order #</label>
-              <input
-                type='number'
-                value={this.state.id}
-                onChange={this.handleIdChange}
-              />
-            </div>
-            <div className='field'>
-              <label>Items</label>
+              <label>Item</label>
               <input
                 type='text'
                 value={this.state.items}
