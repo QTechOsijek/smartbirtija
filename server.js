@@ -42,7 +42,7 @@ app.post('/api/orders', (req, res) => {
     const newOrder = {
       id: i,
       items: Object.keys(req.body.items),
-      itemsObject: req.body.items,
+      quantities: req.body.items,
       price: req.body.price,
       table: req.body.table,
       runningSince: Date.now()

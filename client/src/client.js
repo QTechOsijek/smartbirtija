@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
+
 window.client = (function () {
   function getOrders(success) {
     return fetch('/api/orders', {
@@ -10,31 +11,19 @@ window.client = (function () {
       .then(parseJSON)
       .then(success);
   }
-/*
-  function createTimer(data) {
-    return fetch('/api/timers', {
-      method: 'post',
-      body: JSON.stringify(data),
+
+  function getMenu(success) {
+    return fetch('/api/menu', {
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
-    }).then(checkStatus);
+    }).then(checkStatus)
+      .then(parseJSON)
+      .then(success);
   }
 
-  function updateTimer(data) {
-    return fetch('/api/timers', {
-      method: 'put',
-      body: JSON.stringify(data),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    }).then(checkStatus);
-  }
-
-  function deleteTimer(data) {
-    return fetch('/api/timers', {
+  function deleteOrder(data) {
+    return fetch('/api/orders', {
       method: 'delete',
       body: JSON.stringify(data),
       headers: {
@@ -43,9 +32,9 @@ window.client = (function () {
       },
     }).then(checkStatus);
   }
-
-  function startTimer(data) {
-    return fetch('/api/timers/start', {
+  
+  function createOrder(data) {
+    return fetch('/api/orders', {
       method: 'post',
       body: JSON.stringify(data),
       headers: {
@@ -55,17 +44,6 @@ window.client = (function () {
     }).then(checkStatus);
   }
 
-  function stopTimer(data) {
-    return fetch('/api/timers/stop', {
-      method: 'post',
-      body: JSON.stringify(data),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    }).then(checkStatus);
-  }
-*/
   function checkStatus(response) {
     if (response.status >= 200 && response.status < 300) {
       return response;
@@ -82,7 +60,32 @@ window.client = (function () {
     return response.json();
   }
 
+  function millisecondsToHuman(ms) {
+    const seconds = Math.floor((ms / 1000) % 60);
+    const minutes = Math.floor((ms / 1000 / 60) % 60);
+    const hours = Math.floor(ms / 1000 / 60 / 60);
+
+    const humanized = [
+      pad(hours.toString(), 2),
+      pad(minutes.toString(), 2),
+      pad(seconds.toString(), 2),
+    ].join(':');
+
+    return humanized;
+  }
+
+  function pad(numberString, size) {
+    let padded = numberString;
+    while (padded.length < size) padded = `0${padded}`;
+    return padded;
+  }
+
   return {
-    getOrders
+    getOrders,
+    deleteOrder,
+    createOrder,
+    millisecondsToHuman,
+    pad,
+    getMenu
   };
 }());

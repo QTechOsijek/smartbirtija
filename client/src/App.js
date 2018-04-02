@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import _ from 'lodash';
+
 const client = (function () {
   function getOrders(success) {
     return fetch('/api/orders', {
@@ -125,6 +126,7 @@ class OrderList extends React.Component{
   }
 
   createOrder = (order) => {
+    /*
     const x = {
       id: order.id,
       items: order.items,
@@ -135,8 +137,8 @@ class OrderList extends React.Component{
     this.setState({
       orders: this.state.orders.concat(x)
     });
-
-    client.createOrder(x);
+    */
+    client.createOrder(order);
   }
   render(){
     const orders = this.state.orders.map((order) => (
@@ -146,7 +148,7 @@ class OrderList extends React.Component{
         items={order.items}
         price={order.price}
         table={order.table}
-        itemsObject={order.itemsObject}
+        quantities={order.quantities}
         runningSince={order.runningSince}
         onRemoveClick={this.handleRemove}
       />
@@ -164,7 +166,7 @@ class OrderList extends React.Component{
 
 class Order extends React.Component{
   state = {
-    menu: {}
+    menu: {},
   };
 
   componentDidMount(){
@@ -193,10 +195,16 @@ class Order extends React.Component{
       <Item
         key={Math.random()}
         product = {item}
-        quantity = {this.props.itemsObject[item]}
+        quantity = {this.props.quantities[item]}
         price = {this.getItemPrice(item)}
       />
     ));
+
+    var totalPrice = 0;
+    _.forEach(items, function(item){
+      totalPrice += item.props.price * item.props.quantity;
+    });
+
     return(
       <div className='ui raised segment'>
         <span className='ui medium header'>
@@ -207,7 +215,7 @@ class Order extends React.Component{
         </span>
         {items}
         <span className='ui medium header'>
-          Total price: {this.props.price} kn
+          Total price: {totalPrice.toFixed(2)} kn
         </span>
         <span className='ui right floated small header'>
           Waiting for: <Timer runningSince={this.props.runningSince} />
@@ -304,16 +312,11 @@ class ToggleableForm extends React.Component{
 class OrderForm extends React.Component{
   state = {
     items: '',
-    price: '',
     table: ''
   };
 
   handleItemChange = (e) => {
     this.setState({ items: e.target.value });
-  };
-
-  handlePriceChange = (e) => {
-    this.setState({ price: parseFloat(e.target.value) });
   };
 
   handleTableChange = (e) => {
@@ -323,13 +326,12 @@ class OrderForm extends React.Component{
   handleSubmit = () => {
     var obj = {
       items: {},
-      price: this.state.price,
       table: this.state.table
     }
-    obj.items[this.state.items] = 1;
-    console.log(obj.items);
-    client.createOrder(obj);
-    this.props.onFormClose();
+    this.setState({ items: this.state.items });
+    obj.items = JSON.parse("{" + this.state.items + "}");
+    //client.createOrder(obj);
+    this.props.onFormSubmit(obj);
   };
 
   render(){
@@ -338,19 +340,11 @@ class OrderForm extends React.Component{
         <div className='content'>
           <div className='ui form'>
             <div className='field'>
-              <label>Item</label>
+              <label>Items</label>
               <input
                 type='text'
                 value={this.state.items}
                 onChange={this.handleItemChange}
-              />
-            </div>
-            <div className='field'>
-              <label>Price</label>
-              <input
-                type='number'
-                value={this.state.price}
-                onChange={this.handlePriceChange}
               />
             </div>
             <div className='field'>
