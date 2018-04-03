@@ -348,8 +348,9 @@ class OrderForm extends React.Component{
             <div className='field'>
               <label>Items</label>
               <input
+                placeholder='Item: Quantity'
                 type='text'
-                value={this.state.items}
+                //value={this.state.items}
                 onChange={this.handleItemChange}
               />
             </div>
