@@ -330,7 +330,12 @@ class OrderForm extends React.Component{
       table: this.state.table
     }
     this.setState({ items: this.state.items });
-    obj.items = JSON5.parse("{" + this.state.items + "}");
+    try {
+      obj.items = JSON5.parse("{" + this.state.items + "}");
+    } catch(err){
+      alert('Invalid input');
+      return;
+    }
     //client.createOrder(obj);
     this.props.onFormSubmit(obj);
   };
