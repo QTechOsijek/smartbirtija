@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import _ from 'lodash';
+import JSON5 from 'json5';
 
 const client = (function () {
   function getOrders(success) {
@@ -329,7 +330,7 @@ class OrderForm extends React.Component{
       table: this.state.table
     }
     this.setState({ items: this.state.items });
-    obj.items = JSON.parse("{" + this.state.items + "}");
+    obj.items = JSON5.parse("{" + this.state.items + "}");
     //client.createOrder(obj);
     this.props.onFormSubmit(obj);
   };

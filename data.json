@@ -1,1 +1,15 @@
-[]
+[
+    {
+        "id": 2,
+        "items": [
+            "Cedevita",
+            "Heineken"
+        ],
+        "quantities": {
+            "Cedevita": 2,
+            "Heineken": 1
+        },
+        "table": 1,
+        "runningSince": 1522745662796
+    }
+]
