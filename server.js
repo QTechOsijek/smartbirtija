@@ -3,12 +3,22 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
+const Connection = require('tedious').Connection;
+const Request = require('tedious').Request;
+const TYPES = require('tedious').TYPES;
 
 const app = express();
 
 var i = 1;
 
 const DATA_FILE = path.join(__dirname, 'data.json');
+
+const config = {
+  server: 'qty.database.windows.net',
+  userName: 'pero',
+  password: 'Sifrazaserver1',
+  options: {encrypt: true, database: 'qtydb'}
+};
 
 app.set('port', (process.env.PORT || 3001));
 
@@ -50,9 +60,29 @@ app.post('/api/orders', (req, res) => {
     console.log(newOrder.items);
     orders.push(newOrder);
     i++;
+
     fs.writeFile(DATA_FILE, JSON.stringify(orders, null, 4), () => {
       res.setHeader('Cache-Control', 'no-cache');
       res.json(orders);
+    });
+
+    var connection = new Connection(config);
+
+    connection.on('connect', function(err) {
+      request = new Request("INSERT INTO Orders(items, price, tableNumber) VALUES (@items, @price, @table)",
+      function(err){
+        if(err){
+          console.log(err);
+        };
+      });
+      
+      request.addParameter('items', TYPES.NVarChar, newOrder.items);
+      request.addParameter('price', TYPES.Float, newOrder.price);
+      request.addParameter('table', TYPES.Int, newOrder.table);
+  
+      connection.execSql(request);
+
+      console.log('saved to db');
     });
   });
 });
