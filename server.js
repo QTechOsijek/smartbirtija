@@ -57,7 +57,7 @@ app.post('/api/orders', (req, res) => {
       table: req.body.table,
       runningSince: Date.now()
     };
-    console.log(newOrder.items);
+    //console.log(newOrder.items);
     orders.push(newOrder);
     i++;
 
@@ -66,6 +66,7 @@ app.post('/api/orders', (req, res) => {
       res.json(orders);
     });
 
+    //sending order to database
     var connection = new Connection(config);
 
     connection.on('connect', function(err) {
