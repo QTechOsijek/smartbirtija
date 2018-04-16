@@ -24,6 +24,16 @@ const client = (function () {
       .then(success);
   }
 
+  function getItemPrice(item){
+    if(_.get(menu, ['Piva', item])){
+      return _.get(menu, ['Piva', item]);
+    } else if(_.get(menu, ['Sokovi', item])){
+      return _.get(menu, ['Sokovi', item])
+    } else {
+      return 'unknown';
+    }
+  }
+
   function deleteOrder(data) {
     return fetch('/api/orders', {
       method: 'delete',
@@ -88,9 +98,15 @@ const client = (function () {
     createOrder,
     millisecondsToHuman,
     pad,
-    getMenu
+    getMenu,
+    getItemPrice
   };
 }());
+
+var menu;
+client.getMenu((loadedMenu) => {
+  menu = loadedMenu;
+})
 
 class OrderList extends React.Component{
   state = {
@@ -139,6 +155,15 @@ class OrderList extends React.Component{
       orders: this.state.orders.concat(x)
     });
     */
+    var keys = Object.keys(order.items);
+    var i = 0;
+    var totalPrice = 0;
+
+    _.forEach(order.items, function(item){
+      totalPrice += client.getItemPrice(keys[i]) * item;
+    })
+
+    order.price = totalPrice;
     client.createOrder(order);
   }
   render(){
@@ -166,29 +191,9 @@ class OrderList extends React.Component{
 }
 
 class Order extends React.Component{
-  state = {
-    menu: {},
-  };
-
-  componentDidMount(){
-    client.getMenu((loadedMenu) => (
-      this.setState({ menu: loadedMenu })
-      )
-    );
-  };
 
   handleRemoveClick = () => {
     this.props.onRemoveClick(this.props.id);
-  };
-
-  getItemPrice = (item) => {
-    if(_.get(this.state.menu, ['Piva', item])){
-      return _.get(this.state.menu, ['Piva', item]);
-    } else if(_.get(this.state.menu, ['Sokovi', item])){
-      return _.get(this.state.menu, ['Sokovi', item])
-    } else {
-      return 'unknown';
-    }
   };
 
   render(){
@@ -197,7 +202,7 @@ class Order extends React.Component{
         key={Math.random()}
         product = {item}
         quantity = {this.props.quantities[item]}
-        price = {this.getItemPrice(item)}
+        price = {client.getItemPrice(item)}
       />
     ));
 
