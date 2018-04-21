@@ -112,6 +112,10 @@ app.delete('/api/orders', (req, res) => {
   });
 });
 
+app.get('/about'), (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+}
+
 app.get('/molasses', (_, res) => {
   setTimeout(() => {
     res.end();
