@@ -1,7 +1,6 @@
-/* eslint-disable no-console */
-/* eslint-disable no-undef */
+import _ from 'lodash';
 
-window.client = (function () {
+const client = (function () {
   function getOrders(success) {
     return fetch('/api/orders', {
       headers: {
@@ -20,6 +19,16 @@ window.client = (function () {
     }).then(checkStatus)
       .then(parseJSON)
       .then(success);
+  }
+
+  function getItemPrice(item){
+    if(_.get(menu, ['Piva', item])){
+      return _.get(menu, ['Piva', item]);
+    } else if(_.get(menu, ['Sokovi', item])){
+      return _.get(menu, ['Sokovi', item])
+    } else {
+      return 'unknown';
+    }
   }
 
   function deleteOrder(data) {
@@ -86,6 +95,14 @@ window.client = (function () {
     createOrder,
     millisecondsToHuman,
     pad,
-    getMenu
+    getMenu,
+    getItemPrice
   };
 }());
+
+var menu;
+client.getMenu((loadedMenu) => {
+  menu = loadedMenu;
+})
+
+export default client;
