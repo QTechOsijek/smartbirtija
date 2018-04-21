@@ -3,6 +3,20 @@ import './App.css';
 import _ from 'lodash';
 import JSON5 from 'json5';
 import client from './client';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+class App extends React.Component{
+  render(){
+    return(
+      <Router>
+        <span>
+          <Route exact path="/" component={OrderList} />
+          <Route path="/about" component={About} />
+        </span>
+      </Router>
+    );
+  }
+}
 
 class OrderList extends React.Component{
   state = {
@@ -284,4 +298,35 @@ class OrderForm extends React.Component{
   }
 }
 
-export default OrderList;
+class About extends React.Component{
+  render(){
+    return(
+      <div className='ui segment'>
+        <div className='ui large header'>About Smart Birtija</div>
+        <p>Smart Birtija is a project aiming to boost the efficiency of cafes, bars, restaurants, nightclubs,
+          etc. It enables waiters and bartenders to perform their jobs more productively, reducing waiting
+          times for customers as a result.
+        </p>
+        <div className='ui small header'>How does it work?</div>
+        <p>Each table is fitted with a mobile device, for example a low-end Android or iOS tablet, 
+          or a Raspberry Pi with a touchscreen. A mobile app allows customers to view the menu and 
+          place orders without having to wait for a waiter to come to them first. Placed orders are 
+          instantly visible to the bartender/chef through a network-based dashboard. When the order
+          is ready, the bartender/chef can remove it from the list and start working on the next one. 
+          Orders can also be added manually. All orders are saved to a remote database.
+        </p>
+        <div className='ui small header'>Who made this?</div>
+        <p>Visit our website <a href='http://qtechosijek.github.io'>here</a>.</p>
+        <div className='ui basic center aligned segment'>
+          <Link to="/">
+            <button className='ui button'>
+              Go to dashboard
+            </button>
+          </Link>
+        </div>
+      </div>  
+    );
+  }
+}
+
+export default App;
