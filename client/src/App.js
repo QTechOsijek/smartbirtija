@@ -3,14 +3,15 @@ import './App.css';
 import _ from 'lodash';
 import JSON5 from 'json5';
 import client from './client';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
 class App extends React.Component{
   render(){
     return(
       <Router>
         <span>
-          <Route exact path="/" component={OrderList} />
+          <Route exact path="/" component={Login} />
+          <Route path="/dashboard" component={OrderList} />
           <Route path="/about" component={About} />
         </span>
       </Router>
@@ -290,6 +291,67 @@ class OrderForm extends React.Component{
               >
                 Cancel
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+class Login extends React.Component{
+  state = {
+    loggedIn: false,
+    username: '',
+    password: '',
+    enteredUsername: '',
+    enteredPassword: '',
+    
+  }
+
+  componentDidMount = () => {
+    this.setState({username: 'admin', password: '123'});
+  }
+
+  handleUserChange = (e) => {
+    this.setState({enteredUsername: e.target.value});
+  }
+
+  handlePassChange = (e) => {
+    this.setState({enteredPassword: e.target.value});
+  }
+
+  verify = () => {
+    if(this.state.username == this.state.enteredUsername 
+      && this.state.password == this.state.enteredPassword){
+        this.setState({loggedIn: true});
+        window.location.replace('/dashboard');
+      } else {
+        alert("Wrong username or password!");
+      }
+  }
+
+  render(){
+    return(
+      <div className='ui centered card'>
+        <div className='content'>
+          <div className='ui form'>
+            <div className='field'>
+              <label>Username</label>
+              <input
+                type='text'
+                onChange={this.handleUserChange}
+              />
+            </div>
+            <div className='field'>
+              <label>Password</label>
+              <input
+                type='password'
+                onChange={this.handlePassChange}
+              />
+            </div>
+            <div className='ui blue bottom attached button' onClick={this.verify}>
+              Log in
             </div>
           </div>
         </div>
