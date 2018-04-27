@@ -74,7 +74,7 @@ app.post('/api/orders', (req, res) => {
     var connection = new Connection(config);
 
     connection.on('connect', function(err) {
-      request = new Request("INSERT INTO Orders(items, price, tableNumber) VALUES (@items, @price, @table)",
+      request = new Request("INSERT INTO Orders(items, price, tableNumber, timeOfOrder) VALUES (@items, @price, @table, @date)",
       function(err){
         if(err){
           console.log(err);
@@ -84,6 +84,7 @@ app.post('/api/orders', (req, res) => {
       request.addParameter('items', TYPES.NVarChar, newOrder.items);
       request.addParameter('price', TYPES.Float, newOrder.price);
       request.addParameter('table', TYPES.Int, newOrder.table);
+      request.addParameter('table', TYPES.DateTime, new Date());
   
       connection.execSql(request);
 
