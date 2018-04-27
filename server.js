@@ -84,7 +84,7 @@ app.post('/api/orders', (req, res) => {
       request.addParameter('items', TYPES.NVarChar, newOrder.items);
       request.addParameter('price', TYPES.Float, newOrder.price);
       request.addParameter('table', TYPES.Int, newOrder.table);
-      request.addParameter('table', TYPES.DateTime, new Date());
+      request.addParameter('date', TYPES.DateTime, new Date());
   
       connection.execSql(request);
 
