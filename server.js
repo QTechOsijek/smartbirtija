@@ -43,6 +43,10 @@ app.get('/about', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 })
 
+app.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+})
+
 app.get('/api/orders', (req, res) => {
   fs.readFile(DATA_FILE, (err, data) => {
     res.setHeader('Cache-Control', 'no-cache');
