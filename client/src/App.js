@@ -305,7 +305,7 @@ class Login extends React.Component{
     password: '',
     enteredUsername: '',
     enteredPassword: '',
-    
+    wrongPassword: false
   }
 
   componentDidMount = () => {
@@ -325,36 +325,68 @@ class Login extends React.Component{
       && this.state.password == this.state.enteredPassword){
         window.location.replace('/dashboard');
       } else {
-        alert("Wrong username or password!");
+        this.setState({wrongPassword: true});
       }
   }
 
   render(){
-    return(
-      <div className='ui centered card'>
-        <div className='content'>
-          <div className='ui form'>
-            <div className='field'>
-              <label>Username</label>
-              <input
-                type='text'
-                onChange={this.handleUserChange}
-              />
-            </div>
-            <div className='field'>
-              <label>Password</label>
-              <input
-                type='password'
-                onChange={this.handlePassChange}
-              />
-            </div>
-            <div className='ui blue bottom attached button' onClick={this.verify}>
-              Log in
+    if(this.state.wrongPassword){
+      return(
+        <div className='ui centered card'>
+          <div className='content'>
+            <div className='ui form'>
+              <div className='field'>
+                <label>Username</label>
+                <input
+                  type='text'
+                  onChange={this.handleUserChange}
+                />
+              </div>
+              <div className='field'>
+                <label>Password</label>
+                <input
+                  type='password'
+                  onChange={this.handlePassChange}
+                />
+              </div>
+              <div className='ui tertiary red inverted segment'>
+                Incorrect username or password!
+              </div>
+              <div className='ui blue bottom attached button' onClick={this.verify}>
+                Log in
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
+    else{
+      return(
+        <div className='ui centered card'>
+          <div className='content'>
+            <div className='ui form'>
+              <div className='field'>
+                <label>Username</label>
+                <input
+                  type='text'
+                  onChange={this.handleUserChange}
+                />
+              </div>
+              <div className='field'>
+                <label>Password</label>
+                <input
+                  type='password'
+                  onChange={this.handlePassChange}
+                />
+              </div>
+              <div className='ui blue bottom attached button' onClick={this.verify}>
+                Log in
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 }
 
@@ -380,7 +412,7 @@ class About extends React.Component{
         <div className='ui basic center aligned segment'>
           <Link to="/">
             <button className='ui button'>
-              Go to dashboard
+              Go to home
             </button>
           </Link>
         </div>
