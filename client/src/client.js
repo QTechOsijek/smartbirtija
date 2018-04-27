@@ -107,7 +107,8 @@ const client = (function () {
     millisecondsToHuman,
     pad,
     getMenu,
-    getItemPrice
+    getItemPrice,
+    sendLogInStatus
   };
 }());
 
