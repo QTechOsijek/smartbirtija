@@ -41,17 +41,6 @@ const client = (function () {
       },
     }).then(checkStatus);
   }
-
-  function sendLogInStatus(status){
-    return fetch('/api/loggedin', {
-      method: 'post',
-      body: {"loggedIn": status},
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    }).then(checkStatus);
-  }
   
   function createOrder(data) {
     return fetch('/api/orders', {
@@ -107,8 +96,7 @@ const client = (function () {
     millisecondsToHuman,
     pad,
     getMenu,
-    getItemPrice,
-    sendLogInStatus
+    getItemPrice
   };
 }());
 

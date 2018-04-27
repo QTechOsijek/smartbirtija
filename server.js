@@ -45,11 +45,7 @@ app.get('/about', (req, res) => {
 })
 
 app.get('/dashboard', (req, res) => {
-  if(loggedIn){
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  }else if(loggedIn === false){
-    res.end('unauthorized');
-  }
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 })
 
 app.post('/api/loggedin', (req, res) => {
