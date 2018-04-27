@@ -47,7 +47,7 @@ app.get('/about', (req, res) => {
 app.get('/dashboard', (req, res) => {
   if(loggedIn){
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  }else{
+  }else if(loggedIn === false){
     res.end('unauthorized');
   }
 })
