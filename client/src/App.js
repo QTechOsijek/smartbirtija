@@ -301,7 +301,6 @@ class OrderForm extends React.Component{
 
 class Login extends React.Component{
   state = {
-    loggedIn: false,
     username: '',
     password: '',
     enteredUsername: '',
@@ -324,7 +323,7 @@ class Login extends React.Component{
   verify = () => {
     if(this.state.username == this.state.enteredUsername 
       && this.state.password == this.state.enteredPassword){
-        this.setState({loggedIn: true});
+        client.sendLogInStatus(true);
         window.location.replace('/dashboard');
       } else {
         alert("Wrong username or password!");

@@ -10,6 +10,7 @@ const TYPES = require('tedious').TYPES;
 const app = express();
 
 var i = 1;
+var loggedIn = false;
 
 const DATA_FILE = path.join(__dirname, 'data.json');
 
@@ -44,7 +45,15 @@ app.get('/about', (req, res) => {
 })
 
 app.get('/dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  if(loggedIn){
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  }else{
+    res.end(unauthorized);
+  }
+})
+
+app.post('/api/loggedin', (req, res) => {
+  loggedIn = req.body.loggedIn;
 })
 
 app.get('/api/orders', (req, res) => {
