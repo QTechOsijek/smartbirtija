@@ -10,9 +10,9 @@ const TYPES = require('tedious').TYPES;
 const app = express();
 
 var i = 1;
-var loggedIn = false;
 
 const DATA_FILE = path.join(__dirname, 'data.json');
+const MENU_FILE = path.join(__dirname, 'menu.json');
 
 const config = {
   server: 'qty.database.windows.net',
@@ -103,12 +103,17 @@ app.post('/api/orders', (req, res) => {
 });
 
 app.get('/api/menu', (req, res) => {
+  /*
   const menu = {
     "Piva": {"Heineken": 13, "Osjecko": 13}, 
     "Sokovi": {"Cedevita": 11, "Cola": 12}
   };
-  res.json(menu);
-})
+  */
+  fs.readFile(MENU_FILE, (err, data) => {
+    const menu = JSON.parse(data);
+    res.json(menu);
+  });
+});
 
 app.delete('/api/orders', (req, res) => {
   fs.readFile(DATA_FILE, (err, data) => {

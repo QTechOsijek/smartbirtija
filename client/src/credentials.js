@@ -1,2 +1,2 @@
-const username = "admin";
-const password =  "123";
+const credentials = {'username': 'admin', 'password': '123'};
+export default credentials;

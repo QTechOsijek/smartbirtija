@@ -1,25 +1,16 @@
 {
-  "name": "client",
+  "name": "smart-birtija-client",
   "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "json5": "^1.0.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1",
-    "semantic-ui-css": "^2.3.1"
-  },
+  "description": "Web app for the Smart birtija project. (http://www.smartbija.com)\r Using Node.js/Express HTTP server. Bootstrapped with Create React App.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
   "scripts": {
-    "start": "react-scripts start",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "start": "react-scripts start",
     "eject": "react-scripts eject"
   },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
-  "main": "index.js",
-  "devDependencies": {},
   "author": "",
-  "license": "ISC",
-  "proxy": "http://localhost:3001/"
+  "license": "ISC"
 }

@@ -3,6 +3,7 @@ import './App.css';
 import _ from 'lodash';
 import JSON5 from 'json5';
 import client from './client';
+import credentials from './credentials';
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
 class App extends React.Component{
@@ -309,7 +310,7 @@ class Login extends React.Component{
   }
 
   componentDidMount = () => {
-    this.setState({username: 'admin', password: '123'});
+    this.setState({username: credentials.username, password: credentials.password});
   }
 
   handleUserChange = (e) => {
