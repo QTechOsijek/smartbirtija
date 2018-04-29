@@ -4,7 +4,7 @@ import _ from 'lodash';
 import JSON5 from 'json5';
 import client from './client';
 import credentials from './credentials';
-import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 class App extends React.Component{
   render(){
@@ -322,8 +322,8 @@ class Login extends React.Component{
   }
 
   verify = () => {
-    if(this.state.username == this.state.enteredUsername 
-      && this.state.password == this.state.enteredPassword){
+    if(this.state.username === this.state.enteredUsername 
+      && this.state.password === this.state.enteredPassword){
         window.location.replace('/dashboard');
       } else {
         this.setState({wrongPassword: true});
