@@ -409,7 +409,7 @@ class About extends React.Component{
           Orders can also be added manually. All orders are saved to a remote database.
         </p>
         <div className='ui small header'>Who made this?</div>
-        <p>Visit our website <a href='http://qtechosijek.github.io'>here</a>.</p>
+        <p>Visit our website <a href='http://www.qtechosijek.com'>here</a>.</p>
         <div className='ui basic center aligned segment'>
           <Link to="/">
             <button className='ui button'>
