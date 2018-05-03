@@ -241,6 +241,12 @@ class OrderForm extends React.Component{
     this.setState({ table: parseInt(e.target.value, 10) });
   };
 
+  checkKey = (e) => {
+    if(e.keyCode === 13){
+      this.handleSubmit();
+    }
+  }
+
   handleSubmit = () => {
     var obj = {
       items: {},
@@ -277,6 +283,7 @@ class OrderForm extends React.Component{
                 type='number'
                 value={this.state.table}
                 onChange={this.handleTableChange}
+                onKeyUp={this.checkKey}
               />
             </div>
             <div className='ui two bottom attached buttons'>
@@ -321,6 +328,12 @@ class Login extends React.Component{
     this.setState({enteredPassword: e.target.value});
   }
 
+  checkKey = (e) => {
+    if(e.keyCode === 13){
+      this.verify();
+    }
+  }
+
   verify = () => {
     if(this.state.username === this.state.enteredUsername 
       && this.state.password === this.state.enteredPassword){
@@ -348,6 +361,7 @@ class Login extends React.Component{
                 <input
                   type='password'
                   onChange={this.handlePassChange}
+                  onKeyUp={this.checkKey}
                 />
               </div>
               <div className='ui tertiary red inverted segment'>
@@ -378,6 +392,7 @@ class Login extends React.Component{
                 <input
                   type='password'
                   onChange={this.handlePassChange}
+                  onKeyUp={this.checkKey}
                 />
               </div>
               <div className='ui blue bottom attached button' onClick={this.verify}>
