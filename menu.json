@@ -1,4 +1,32 @@
 {
-    "Piva": {"Heineken": 13, "Osjecko": 13}, 
-    "Sokovi": {"Cedevita": 11, "Cola": 12}
+    "Piva": {
+                "Heineken": 13, 
+                "Osječko": 13,
+                "Osječko tamno": 13, 
+                "Tuborg": 12, 
+                "Budweiser": 15, 
+                "Ožujsko": 13, 
+                "Karlovačko": 13, 
+                "Staropramen": 15,
+                "Tomislav": 15
+            }, 
+    "Sokovi": {
+                "Cedevita": 11, 
+                "Cola": 12,
+                "Fanta": 10,
+                "Sprite": 10,
+                "Red Bull": 15,
+                "Jabuka": 10,
+                "Marelica": 11
+            },
+    "Topli napitci": {
+                        "Kava": 8,
+                        "Kava s mlijekom": 9,
+                        "Topla čokolada": 10,
+                        "Cappuccino": 11,
+                        "Čaj": 10
+                },
+    "Bomboni": {
+                "Bombon": 0
+            }
 }

@@ -25,7 +25,11 @@ const client = (function () {
     if(_.get(menu, ['Piva', item])){
       return _.get(menu, ['Piva', item]);
     } else if(_.get(menu, ['Sokovi', item])){
-      return _.get(menu, ['Sokovi', item])
+      return _.get(menu, ['Sokovi', item]);
+    } else if(_.get(menu, ['Bomboni', item])){
+      return _.get(menu, ['Bomboni', item]);
+    } else if(_.get(menu, ['Topli napitci', item])){
+      return _.get(menu, ['Topli napitci', item]);
     } else {
       return 'unknown';
     }
